@@ -27,9 +27,19 @@
 
 
 #Following is the shell script.
-#! /bin/bash
 echo "______________________________________________________________________________"
 echo " Shell Script Output of Kshitij (121935013) for RAM,CPU,Memory Usage"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-echo "$(ps -eo lstart,pid,time,etime,comm,%mem,%cpu --sort=-%cpu | head -n 25)" 
-echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+if [ $1 == "help" ] ;then
+    echo "___________________________________"
+    echo "Help for this program"
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo "This script will give you RAM,CPU usage. "
+    echo "In order to run this script, in Terminal go to specified directory where .sh file is saved"
+    echo "and then in order to run the script, type-->>   ./file_name.sh"
+    echo "Thank You "
+    echo "___________________________________"
+else
+    echo "$(ps -eo lstart,time,etime,pid,comm,%mem,%cpu --sort=-%cpu | head -n 25)" 
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+fi
