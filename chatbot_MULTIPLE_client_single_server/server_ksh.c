@@ -9,7 +9,7 @@
 #include <pthread.h> //POSIX thread(pthread) standard API(Application program Interface) for all thread related functions. It allows us to create multiple threads for concurrent process flow. 
 
 pthread_mutex_t MUTEX;  vv //a mutex is created
-int connected_CLIENTS[20]; //max 20 clients are made available
+int connected_CLIENTS[15]; //max 15 clients are made available
 int client_count=0;        // counter to keep track of number of clients
 
 
@@ -47,11 +47,11 @@ void *reciever_message(void *client_socket)   //broadcaster client socket addres
 {
     int socketX = *((int *)client_socket);  //type casted to integer
 
-    char message[500];   //message buffer
+    char message[200];   //message buffer
 
     int message_length;  //recieved message length from broadcaster
 
-    while((message_length = recv(socketX,message,500,0)) > 0) 
+    while((message_length = recv(socketX,message,200,0)) > 0) 
     //recv() function recieve a message from a connection-mode socket
     //arguments are 1.socket_file_descriptor  2. message_buffer  3.buffer(msg)_length   4.flags..if not use 0
     {
@@ -75,12 +75,12 @@ int main()
     SERVER_ADDR.sin_family = AF_INET;
 
     ///The third field of serv_addr is unsigned short sin_port , which contain the port number.
-    SERVER_ADDR.sin_port = htons(1234); //htons: integer byte order to network byte order(port)
+    SERVER_ADDR.sin_port = htons(7987); //htons: integer byte order to network byte order(port)
 
     //The second field of sockaddr_in is a structure of type struct in_addr which contains only a single field unsigned long s_addr.
     //This field contains the IP address of the host. For server code, this will always be the IP address of the machine on which the server is running,
     //and there is a symbolic constant INADDR_ANY which gets this address.
-    SERVER_ADDR.sin_addr.s_addr = inet_addr("127.0.0.1");
+    SERVER_ADDR.sin_addr.s_addr = inet_addr("126.0.0.1");
 
     /* The socket() system call creates a new socket.It takes three arguments.
         1. The first is the address domain of the socket. AF_INET is symbol constant for the latter.
@@ -107,7 +107,7 @@ int main()
     // The listen system call allows the process to listen on the socket for connections.
     // The first argument is the socket file descriptor, and the second is the size of the backlog queue,
     // i.e., the number of connections that can be waiting while the process is handling a particular connection.
-    if( listen( socketX ,20 ) == -1 )
+    if( listen( socketX ,15 ) == -1 )
         printf("listening failed \n");
 
     while(1)
