@@ -8,7 +8,7 @@
 #include <arpa/inet.h>//definitions for internet operations // for including inet_ntop() function
 #include <pthread.h> //POSIX thread(pthread) standard API(Application program Interface) for all thread related functions. It allows us to create multiple threads for concurrent process flow. 
 
-char message[500];
+char message[200];
 
 //function to recieve the message from sender but NOT broadcasting
 void *reciever_message(void *this_sock)
@@ -17,7 +17,7 @@ void *reciever_message(void *this_sock)
 	int msg_length;
 
 	// client thread always ready to receive message
-	while((msg_length = recv(socketX,message,500,0)) > 0) 
+	while((msg_length = recv(socketX,message,200,0)) > 0) 
 	//recv() function recieve a message from a connection-mode socket
     //arguments are 1.socket_file_descriptor  2. message_buffer  3.buffer(msg)_length   4.flags..if not use 0
 	{
@@ -33,9 +33,9 @@ int main(int argc,char *argv[])
 	pthread_t reciever_thread;
 	int msg_length; //message length counter
 	int socketX;
-	char message_broadcaster[500];  // a message broadcaster buffer
+	char message_broadcaster[200];  // a message broadcaster buffer
 	struct sockaddr_in SERVER_ADDR; //A "sockaddr_in" is a structure containing an internet address. This structure is defined in <netinet/in.h>.
-	char client_name[100];  //a client name string buffer
+	char client_name[50];  //a client name string buffer
 	
 	strcpy(client_name, argv[1]); //copy the string which ws entered compile time into "client_name"
 	
@@ -57,7 +57,7 @@ int main(int argc,char *argv[])
 	//The second field of sockaddr_in is a structure of type struct in_addr which contains only a single field unsigned long s_addr.
     //This field contains the IP address of the host. For server code, this will always be the IP address of the machine on which the server is running,
     //and there is a symbolic constant INADDR_ANY which gets this address.
-	SERVER_ADDR.sin_addr.s_addr = inet_addr("127.0.0.1");
+	SERVER_ADDR.sin_addr.s_addr = inet_addr("126.0.0.1");
 	
 	
 	// connect the client socket to server socket.
@@ -86,7 +86,7 @@ int main(int argc,char *argv[])
 	
 	
 	//ready to read a message from console
-	while(fgets(message,500,stdin) > 0) //get the message from sender(stdin file) and store it into "message" buffer string
+	while(fgets(message,200,stdin) > 0) //get the message from sender(stdin file) and store it into "message" buffer string
 	{
 		
 		strcpy(message_broadcaster,client_name); //copy the client name into message_broadcaster
